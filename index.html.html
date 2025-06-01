@@ -1,0 +1,534 @@
+<!-- This is the full HTML structure for Axem Construction's homepage with explanatory comments -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ====== HTML Document Head ====== -->
+  <!-- Sets the character encoding and makes the site responsive on all devices -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- Sets the browser tab title -->
+  <title>Axem Construction | Gros-Oeuvre du Bâtiment • Bureau d'Étude Structure</title>
+
+  <!-- Loads the Poppins font from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- Internal CSS styling starts here -->
+  <!-- ====== CSS Styling Section ====== -->
+  <style>
+    /* Sets the default font, removes margin/padding, and applies colors */
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #fff;
+      background-color: #e0e5eb;
+      scroll-behavior: smooth;
+    }
+
+    /* Styles for the fixed-position floating header bar */
+    header {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%; /* Increased width from 90% to 95% */
+      max-width: 1300px; /* Increased max width */
+      z-index: 100;
+      background-color: rgba(0, 43, 92, 0.4);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 3rem 2.5rem;
+      transition: padding 0.3s ease;}
+
+    /* Header style when scrolling */
+    header.shrink {
+      padding: 1rem 2.5rem; /* Smaller height on scroll */
+    }
+
+    /* Logo image height */
+    .logo {
+      height: 120px; /* Increased logo height */
+      transition: height 0.3s ease;}
+
+    /* Desktop nav menu layout */
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    /* Link styles inside nav */
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      position: relative; /* Needed for underline effect */
+    }
+
+    /* Animated underline effect on nav links */
+    nav a::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 2px;
+      background: #f6e05e;
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Hamburger menu icon (hidden by default) */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .bar {
+      height: 3px;
+      width: 25px;
+      background-color: white;
+      margin: 4px 0;
+    }
+
+    /* Responsive behavior for small screens */
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        background-color: #002b5c;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        padding: 1rem;
+        border-radius: 8px;
+      }
+      nav.show {
+        display: flex; /* Shown when .show class toggled via JS */
+      }
+      .menu-toggle {
+        display: flex; /* Hamburger shows on small screens */
+      }
+    }
+
+    /* Hero section with rotating background images */
+    .hero {
+      position: relative;
+      height: 75vh;
+      overflow: hidden;
+    }
+
+    .hero-images {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .hero-images img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Ensure the image covers the full hero area */
+      position: absolute;
+      opacity: 0;
+      animation: rotateImages 20s infinite; /* Triggers the fade-in/out rotation */
+    }
+
+    /* Sets animation delay for each image */
+    .hero-images img:nth-child(1) { animation-delay: 0s; }
+    .hero-images img:nth-child(2) { animation-delay: 6s; }
+    .hero-images img:nth-child(3) { animation-delay: 12s; }
+
+    /* Keyframes for background image rotation */
+    @keyframes rotateImages {
+      0%, 100% { opacity: 0; }
+      10%, 30% { opacity: 1; }
+      40%, 100% { opacity: 0; }
+    }
+
+    /* Content layered over the hero image */
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.4); /* Dark overlay for readability */
+      color: white;
+      padding: 2rem;
+    }
+
+    .hero-content h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      max-width: 700px;
+    }
+
+    section {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .services, .testimonials {
+      background-color: #f0f4f8;
+      color: #000;
+    }
+
+    .card {
+      background: white;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-left: 5px solid #3182ce; /* Left border for style */
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      color: #000;
+    }
+
+    button {
+      padding: 0.75rem;
+      background: #f5f4f2;
+      color: #002b5c;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #fcfbfa;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background-color: #001d3d;
+      font-size: 0.9rem;
+    }
+    /* Logo style when header is scrolled */
+  header.shrink .logo {
+    height: 80px; /* Adjusted shrink size for larger logo */}
+    /* Blinking cursor effect */
+    #hero-rotating-text::after {
+      content: '|';
+      animation: blinkCursor 1s step-start infinite;
+      margin-left: 5px;
+    }
+
+    @keyframes blinkCursor {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    nav a.active {
+      color: #ffffff;
+    }
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: block;
+      position: absolute;
+      left: 0;
+      background-color: rgba(0, 43, 92, 0.4);
+      min-width: 200px;
+      border-radius: 8px;
+      padding: 0.5rem;
+      z-index: 200;
+      top: 100%;
+      opacity: 0;
+      transform: translateY(-10px);
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .dropdown-content a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem;
+      text-align: left;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f5f4f2;
+      color: #002b5c;
+    }
+
+    .dropdown:hover .dropdown-content {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+</style>
+</head>
+<body>
+  <!-- ====== HTML Body Starts Here ====== -->
+
+  <!-- Site header with logo and navigation -->
+  <header>
+    <div>
+      <img src="LOGO AXEM CONSTRUCTION.jpg" alt="Axem Construction Logo" class="logo">
+      <p style="margin-top: 12px; font-size: 1.2rem; color: #fff;">Gros-Oeuvre du Bâtiment • Bureau d'Étude Structure</p>
+    </div>
+    <div class="contact-info" style="position: absolute; top: 10px; right: 30px; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 4px; font-size: 1.3rem; color: white;">
+  <div style="display: flex; align-items: center; gap: 6px;">
+    <img src="https://cdn-icons-png.flaticon.com/128/9639/9639598.png" alt="Phone Icon" style="width: 18px; height: 18px;">
+    <span>07.67.43.86.56</span>
+  </div>
+  <div style="display: flex; align-items: center; gap: 6px;">
+    <img src="https://cdn-icons-png.flaticon.com/128/6811/6811658.png" alt="Email Icon" style="width: 21px; height: 21px;">
+    <span>axemconstruction@outlook.com</span>
+  </div>
+</div>
+
+<div class="menu-toggle" onclick="toggleMenu()">
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+    <div style="position: absolute; bottom: 10px; right: 100px; text-align: right;">
+      <nav id="navMenu" style="display: flex; gap: 2rem; justify-content: flex-end;">
+  <a href="#hero">Accueil</a>
+  <div class="dropdown">
+    <a href="#about">Qui Sommes-nous ?</a>
+    <div class="dropdown-content">
+      <a href="#about">À Propos</a>
+      <a href="#team">Notre Équipe</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <a href="#testimonials">Notre Expérience</a>
+    <div class="dropdown-content">
+      <a href="#chantier">Chantier Gros-Oeuvre</a>
+      <a href="#conception">Bureau d'Étude de Conception Structure</a>
+      <a href="#execution">Bureau d'Étude d'Exécution Structure</a>
+    </div>
+  </div>
+  <a href="#services">Nos Engagements</a>
+  <a href="#contact">Contact</a>
+</nav>
+    </div>
+  </header>
+
+  <!-- Rotating hero image banner -->
+  <div class="hero">
+    <div class="hero-images">
+      <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9" alt="Image 1">
+      <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914" alt="Image 2">
+      <img src="https://images.unsplash.com/photo-1615406020658-6c4b805f1f30" alt="Image 3">
+    </div>
+    <div class="hero-content">
+      <h2 id="hero-rotating-text">Maçonnerie de Gros-Oeuvre</h2>
+      <!-- Optionally, you can keep a subheading or remove the paragraph if not needed -->
+    </div>
+  </div>
+
+  <!-- About the team section -->
+  <section id="about" style="display: flex; flex-wrap: wrap; align-items: center; gap: 2rem;">
+    <img src="https://www.culture.gouv.fr/var/culture/storage/images/_aliases/illustration-16-9/media/actualites/2018/mai/bauhaus/2039573-2-fre-FR/Bauhaus.jpg" alt="Chantier de construction Axem" style="flex: 1 1 40%; max-width: 500px; border-radius: 8px;">
+    <div style="flex: 1 1 50%;">
+      <h2 style="color: #002b5c;">Notre Engagement dans le Gros-Oeuvre</h2>
+      <p style="color: #002b5c;">AxEM CONSTRUCTION est une jeune entreprise de Gros-Oeuvre du Bâtiment. Elle possède une expérience de 15 ans en tant que chef de chantier Gros-Oeuvre ainsi qu'en bureau d'étude de conception et d'exécution Structure. L'expérience de ses 2 fondateurs lui permet d'avoir les compétences techniques de terrain et de bureau d'étude, de méthodologie, des normes et de gestion. Nos compétences vont de l'exécution Gros-Oeuvre des chantiers à leur Maîtrise d'Oeuvre.</p>
+      </p>
+      <a href="#about" style="
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #002b5c;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+">
+  Nous Découvrir
+</a>
+
+    </div>
+  </section>
+
+  <!-- Call-to-Action Section -->
+  <section style="background-color: rgba(0, 43, 92, 0.2); text-align: center; padding: 3rem 2rem;">
+    <h2 style="color: #002b5c; margin-bottom: 1rem;">Vous avez un projet ?</h2>
+    <p style="color: #002b5c; font-size: 1.1rem; margin-bottom: 2rem;">Contactez-nous dès aujourd'hui pour en discuter.</p>
+    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+      <a href="tel:0767438656" style="background-color: #002b5c; color: white; padding: 0.75rem 1.5rem; border-radius: 6px; text-decoration: none; font-weight: 600; transition: background-color 0.3s ease;">📞 Appeler</a>
+      <a href="mailto:axemconstruction@outlook.com" style="background-color: #002b5c; color: white; padding: 0.75rem 1.5rem; border-radius: 6px; text-decoration: none; font-weight: 600; transition: background-color 0.3s ease;">✉️ Envoyer un Email</a>
+    </div>
+  </section>
+
+  <!-- Services section -->
+  <section id="services" class="services">
+  <h2 style="color: #002b5c; text-align: center; font-size: 2.8rem; margin-bottom: 2rem; margin-top: -1rem;">Nos Réalisations Gros-Oeuvre</h2>
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;">
+  <a href="#" style="position: relative; display: block; width: 440px; height: 300px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+    <img src="https://static.lpnt.fr/images/2016/07/19/4745869-4745891-g-jpg_3681228_1000x667.jpg" alt="Résidence Le bel Air à Montreuil (93)" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+    <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0, 43, 92, 0.7); color: white; padding: 0.5rem 1rem; font-weight: bold; font-size: 1rem; text-align: center;">Résidence Le bel Air à Montreuil (93)</div>
+  </a>
+  <a href="#" style="position: relative; display: block; width: 440px; height: 300px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+    <img src="https://t4.ftcdn.net/jpg/14/02/60/15/360_F_1402601583_oiepdCZVgVlirwwkykNWaVhE0K9WrFJ1.jpg" alt="Chantier Résidentiel" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+    <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0, 43, 92, 0.7); color: white; padding: 0.5rem 1rem; font-weight: bold; font-size: 1rem; text-align: center;">Résidence Poly-Cités à Aubervilliers (93)</div>
+  </a>
+  <a href="#" style="position: relative; display: block; width: 440px; height: 300px; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+    <img src="https://maisonetdemeure.com/wp-content/uploads/2025/03/Feature-5.jpg" alt="Projet Structure Moderne" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+    <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0, 43, 92, 0.7); color: white; padding: 0.5rem 1rem; font-weight: bold; font-size: 1rem; text-align: center;">Résidence l'Opale à Bezons (95)</div>
+  </a>
+</div>
+
+<style>
+a:hover img {
+  transform: scale(1.05);
+}
+</style>
+  </a>
+  
+  
+</div>
+  </a>
+  
+</div>
+    </a>
+  </div>
+</section>
+
+  <!-- About the team section -->
+  <section id="localisation" style="padding: 4rem 2rem; text-align: center; background-color: #f0f4f8;">
+  <h2 style="color: #002b5c; font-size: 2.4rem; margin-bottom: 1rem;">Notre Adresse</h2>
+  <p style="color: #002b5c; font-size: 1.2rem; margin-bottom: 2rem;">Venez nous rencontrer ou découvrez où nous sommes situés :</p>
+  <div style="width: 100%; max-width: 1000px; margin: auto;">
+    <iframe
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2627.8879382204437!2d1.702068176105839!3d48.98590047133043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e6be556fe39cb3%3A0xd7dab487fbcd790b!2s6%20Bd%20Roger%20Salengro%2C%2078711%20Mantes-la-Ville%2C%20France!5e0!3m2!1sfr!2sfr!4v1717230720000!5m2!1sfr!2sfr"
+  width="100%" height="400" style="border:0; border-radius: 8px;"
+  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</section>
+
+  <!-- Testimonials from clients -->
+  <section id="testimonials" class="testimonials">
+    <h2>Témoignages</h2>
+    <div class="card">“Axem a transformé notre maison exactement comme nous l'avions imaginé. Professionnels, rapides et fiables !” – Claire D.</div>
+    <div class="card">“Une équipe de confiance qui a livré notre bureau à temps et avec une qualité exceptionnelle.” – Marc L.</div>
+  </section>
+
+  <!-- Contact section with form -->
+  <section id="contact">
+    <h2>Contactez-Nous</h2>
+    <p>Vous avez un projet en tête ? Parlons-en. Remplissez le formulaire ci-dessous ou écrivez-nous à <a href="mailto:contact@axem-construction.fr">contact@axem-construction.fr</a>.</p>
+    <form class="contact-form" onsubmit="submitForm(event)">
+      <input type="text" placeholder="Votre Nom" required />
+      <input type="email" placeholder="Votre Email" required />
+      <textarea rows="5" placeholder="Votre Message" required></textarea>
+      <button type="submit">Envoyer</button>
+    </form>
+  </section>
+
+  <!-- Page footer -->
+  <footer>
+    <p>&copy; 2025 Axem Construction – Fièrement construite en France</p>
+  </footer>
+
+  <!-- JavaScript functionality for form and menu -->
+  <!-- ====== JavaScript Section Starts ====== -->
+  <script>
+    function submitForm(e) {
+      e.preventDefault(); // Prevents default form behavior
+      alert('Merci ! Votre message a bien été reçu. Nous vous répondrons rapidement.');
+    }
+
+    function toggleMenu() {
+      const nav = document.getElementById('navMenu');
+      nav.classList.toggle('show'); // Toggles mobile nav visibility
+    }
+  // Shrinks the header when user scrolls down
+    window.addEventListener('scroll', function () {
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) {
+        header.classList.add('shrink');
+      } else {
+        header.classList.remove('shrink');
+      }
+    });
+  // Rotating hero phrases
+    const phrases = [
+      "Maçonnerie de Gros-Oeuvre",
+      "Bureau d'Étude de Conception Structure",
+      "Bureau d'Étude d'Exécution Structure"
+    ];
+    let phraseIndex = 0;
+    const rotatingTextElement = document.getElementById("hero-rotating-text");
+
+    document.addEventListener("DOMContentLoaded", () => {
+      function typeWriter(text, i, callback) {
+        if (i === 0) rotatingTextElement.textContent = "";
+        if (i < text.length) {
+          rotatingTextElement.textContent += text.charAt(i);
+          setTimeout(() => typeWriter(text, i + 1, callback), 80);
+        } else if (typeof callback === "function") {
+          setTimeout(callback, 1800);
+        }
+      }
+
+      function startTypingRotation() {
+        typeWriter(phrases[phraseIndex], 0, () => {
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          startTypingRotation();
+        });
+      }
+
+      startTypingRotation();
+    }); // Changes phrase every 4 seconds
+
+    // Highlight nav items on scroll
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll("nav a");
+
+    window.addEventListener("scroll", () => {
+      let current = "";
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 150;
+        if (pageYOffset >= sectionTop) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href").includes(current)) {
+          link.classList.add("active");
+        }
+      });
+    });
+
+</script>
+  <!-- ====== End of JavaScript Section ====== -->
+
+</body>
+</html>
